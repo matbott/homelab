@@ -86,7 +86,7 @@ if ! sudo curl -sL "$FONT_URL" -o "$FONT_DIR/$FONT_NAME"; then
 else
     echo "[✓] Fuente '$FONT_NAME' instalada en $FONT_DIR."
     FONT_NAME_FOR_BANNER="$FONT_NAME" # Solo el nombre del archivo
-    FONT_DIR_FOR_BANNER="$FONT_DIR"   # El directorio de la fuente
+    FONT_DIR_FOR_BANNER="$FONT_DIR"    # El directorio de la fuente
 fi
 
 # Crear script de bienvenida con información del sistema simplificada
@@ -158,9 +158,9 @@ show_system_info() {
         KERNEL=\$(uname -r 2>/dev/null || echo "N/A")
         UPTIME=\$(uptime -p 2>/dev/null | sed 's/up //g' || echo "N/A")
         
-        printf "🖥️   Sistema: ${CYAN}%s${RESET}\n" "${OS_INFO}"
-        printf "🧬 Kernel:  ${GREEN}%s${RESET}\n" "${KERNEL}"
-        printf "⏱️   Uptime:  ${YELLOW}%s${RESET}\n" "${UPTIME}"
+        printf "${GREEN}${BOLD}🌐 Sistema:${RESET} %s\n" "\${OS_INFO}"
+        printf "${GREEN}${BOLD}🧠 Kernel: ${RESET} %s\n" "\${KERNEL}"
+        printf "${GREEN}${BOLD}⏰ Uptime: ${RESET} %s\n" "\${UPTIME}"
         
         echo "" # Separador
 
@@ -176,9 +176,8 @@ show_system_info() {
             CPU_USAGE=\$(top -bn1 2>/dev/null | grep "Cpu(s)" | awk '{print \$2}' | sed 's/[^0-9.]*//g' | cut -d. -f1 || echo "0")
         fi
 
-        printf "🧠 CPU: ${MAGENTA}%s${RESET} (Cores: ${CYAN}%s${RESET})\n" "${CPU_MODEL}" "$CPU_CORES"        
-        #printf "Uso CPU: ${YELLOW}%s%%%s\n" "${CPU_USAGE}" "${RESET}"
-        printf "${MAGENTA}${BOLD}Uso CPU:${RESET} %s%%\n" "\${CPU_USAGE}"
+        printf "${MAGENTA}${BOLD}💻 CPU: ${RESET}%s (Cores: %s)\n" "\${CPU_MODEL}" "\$CPU_CORES"
+        printf "${MAGENTA}${BOLD}📊 Uso CPU:${RESET} %s%%\n" "\${CPU_USAGE}"
         
         echo "" # Separador
 
@@ -208,7 +207,7 @@ show_system_info() {
             fi
         fi
 
-        printf "💾 Memoria: ${YELLOW}%sGB${RESET} / ${CYAN}%sGB${RESET}\n" "${MEM_USED_GB}" "${MEM_TOTAL_GB}"
+        printf "${BLUE}${BOLD}💾 Memoria:${RESET} ${YELLOW}%sGB${RESET} / ${YELLOW}%sGB${RESET}\n" "\${MEM_USED_GB}" "\${MEM_TOTAL_GB}"
         
         echo "" # Separador
 
@@ -230,7 +229,7 @@ show_system_info() {
             if [[ "\$DISK_USED_GB" -eq 0 && "\$DISK_USED_RAW" -gt 0 ]]; then DISK_USED_GB=1; fi
         fi
 
-        printf "💽 Disco: ${YELLOW}%sGB${RESET} / ${CYAN}%sGB${RESET}\n" "${DISK_USED_GB}" "${DISK_TOTAL_GB}"
+        printf "${CYAN}${BOLD}💽 Disco:  ${RESET} ${YELLOW}%sGB${RESET} / ${YELLOW}%sGB${RESET}\n" "\${DISK_USED_GB}" "\${DISK_TOTAL_GB}"
         
         echo "" # Separador
         
@@ -239,10 +238,10 @@ show_system_info() {
         PROCESSES=\$(ps aux 2>/dev/null | wc -l || echo "N/A")
         LOAD_AVG=\$(uptime 2>/dev/null | awk -F'load average:' '{print \$2}' | sed 's/^ *//' | cut -d, -f1 || echo "N/A")
         
-        printf "🌐 IP Local:   ${CYAN}%s${RESET}\n" "$IP_LOCAL"
-        printf "📊 Procesos:   ${MAGENTA}%s${RESET}\n" "$PROCESSES"
-        printf "📈 Load Avg:   ${YELLOW}%s${RESET}\n" "$LOAD_AVG"
-        printf "📅 Fecha:      ${GREEN}%s${RESET}\n" "$(date '+%Y-%m-%d %H:%M')"
+        printf "${YELLOW}${BOLD}🌐 IP Local:  ${RESET} %s\n" "\$IP_LOCAL"
+        printf "${GRAY}${BOLD}⚙️ Procesos:  ${RESET} %s\n" "\$PROCESSES"
+        printf "${GRAY}${BOLD}📈 Load Avg:  ${RESET} %s\n" "\$LOAD_AVG"
+        printf "${GRAY}${BOLD}📅 Fecha:     ${RESET} %s\n" "\$(date '+%Y-%m-%d %H:%M')"
         
         echo ""
         echo -e "${GREEN}${BOLD}🚀 ¡Bienvenido al sistema!${RESET} ${BLUE}Disfruta tu sesión${RESET}"
