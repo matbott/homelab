@@ -239,7 +239,7 @@ show_system_info() {
         LOAD_AVG=\$(uptime 2>/dev/null | awk -F'load average:' '{print \$2}' | sed 's/^ *//' | cut -d, -f1 || echo "N/A")
         
         printf "${YELLOW}${BOLD}🌐 IP Local:  ${RESET} %s\n" "\$IP_LOCAL"
-        printf "${GRAY}${BOLD}⚙️ Procesos:  ${RESET} %s\n" "\$PROCESSES"
+        printf "${GRAY}${BOLD}⚙️  Procesos:  ${RESET} %s\n" "\$PROCESSES"
         printf "${GRAY}${BOLD}📈 Load Avg:  ${RESET} %s\n" "\$LOAD_AVG"
         printf "${GRAY}${BOLD}📅 Fecha:     ${RESET} %s\n" "\$(date '+%Y-%m-%d %H:%M')"
         
